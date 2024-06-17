@@ -1,0 +1,13 @@
+mat-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+.snackbar-success {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+.snackbar-error {
+    background-color: #f44336;
+    color: white;
+  }
