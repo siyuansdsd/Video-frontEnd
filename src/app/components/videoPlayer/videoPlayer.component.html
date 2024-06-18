@@ -1,0 +1,17 @@
+<div class="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+    <div class="w-full max-w-4xl p-6 rounded-md shadow-lg">
+        <button mat-raised-button color="primary" (click)="goBack()" class="mb-4 flex items-center">
+            <mat-icon class="mr-2">arrow_back</mat-icon>
+            Go Back
+        </button>
+        <mat-card *ngIf="video$ | async as video">
+            <video [src]="video.url" controls class="w-full h-auto rounded-md shadow-md mb-4"></video>
+            <mat-card-content>
+                <p><strong>Title:</strong> {{ video.title }}</p>
+                <p><strong>Description:</strong> {{ video.description }}</p>
+                <p><strong>File Size:</strong> {{ (video.size / (1024 * 1024)).toFixed(2) + 'MB' }}</p>
+                <p><strong>Created At:</strong> {{ video.created_at | date: 'medium' }}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

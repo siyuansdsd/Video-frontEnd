@@ -1,0 +1,36 @@
+<mat-card class="w-full max-w-2xl m-56 p-5 rounded-md shadow-lg">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Video List</h2>
+    <button mat-raised-button color="primary" (click)="refreshVideos()" class="mb-4 flex items-center justify-center">
+        <mat-icon class="mr-2">refresh</mat-icon>
+        Refresh Videos
+    </button>
+    <div class="h-[640px] overflow-y-auto relative" *ngIf="videos$ | async as videos">
+        <ng-container *ngIf="isLoading$ | async; else videoList">
+            <div class="absolute inset-0 flex justify-center items-center bg-gray-100">
+                <mat-spinner></mat-spinner>
+            </div>
+        </ng-container>
+        <ng-template #videoList>
+            <div *ngFor="let video of videos" class="mb-4 w-full">
+                <mat-card>
+                    <div class="flex justify-between items-center p-4">
+                        <div class="flex-1">
+                            <mat-card-title>{{ video.title }}</mat-card-title>
+                            <mat-card-content class="mt-2">
+                                <p>{{ video.description }}</p>
+                            </mat-card-content>
+                        </div>
+                        <div class="flex">
+                            <button mat-icon-button color="primary" (click)="playVideo(video.id)">
+                                <mat-icon>play_arrow</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="deleteVideo(video.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </ng-template>
+    </div>
+</mat-card>

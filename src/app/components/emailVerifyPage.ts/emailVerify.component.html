@@ -1,0 +1,17 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <mat-card class="w-full max-w-md p-4">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Email Verification</h2>
+
+        <div *ngIf="isLoading" class="flex justify-center items-center">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+
+        <div *ngIf="!isLoading">
+            <p class="text-center text-gray-700">{{ verificationStatus }}</p>
+            <p *ngIf="verificationStatus === 'Email verified'" class="text-center text-gray-700">Redirecting in {{
+                countdown }} seconds...</p>
+            <button *ngIf="verificationStatus === 'Verification failed'" mat-raised-button color="primary"
+                class="w-full mt-4" (click)="retry()">Retry</button>
+        </div>
+    </mat-card>
+</div>
