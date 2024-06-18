@@ -1,9 +1,9 @@
 export interface Video {
-  id: number;
+  id: string;
   title: string;
   description: string;
   url: string;
-  createdAt: Date;
+  created_at: Date;
   user_ids: number;
   size: number;
 }

@@ -3,23 +3,35 @@ import * as VideoActions from '../actions/video.action';
 import { Video } from '../../interface/video';
 
 export interface VideoState {
-  videos: Video[] | null;
+  videos: Video[];
+  loading: boolean;
   error: Error | null;
 }
 
 export const initialState: VideoState = {
-  videos: null,
+  videos: [],
+  loading: false,
   error: null,
 };
 
 export const videoReducer = createReducer(
   initialState,
+  on(VideoActions.loadVideos, (state) => ({ ...state, loading: true })),
   on(VideoActions.loadVideosSuccess, (state, { videos }) => ({
     ...state,
+    loading: false,
     videos,
-    error: null,
   })),
   on(VideoActions.loadVideosFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+  on(VideoActions.deleteVideoSuccess, (state, { id }) => ({
+    ...state,
+    videos: state.videos.filter((video) => video.id !== id),
+  })),
+  on(VideoActions.deleteVideoFailure, (state, { error }) => ({
     ...state,
     error,
   }))

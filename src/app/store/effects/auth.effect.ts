@@ -32,7 +32,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
         map(() => {
-          this.router.navigate(['/video_upload']);
+          this.router.navigate(['/video']);
           this.startTokenRefresh();
         })
       ),

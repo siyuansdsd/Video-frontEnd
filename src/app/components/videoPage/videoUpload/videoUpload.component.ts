@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { VideoService } from '../../../services/video/video.service';
 import { AlertService } from '../../../services/alert/alert.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
@@ -21,12 +22,15 @@ import { AlertService } from '../../../services/alert/alert.service';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class VideoUploadComponent {
   videoSrc: string | ArrayBuffer | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
   uploadForm: FormGroup;
+  isLoading = false;
+  fileSize: number;
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +41,7 @@ export class VideoUploadComponent {
       title: [''],
       description: [''],
     });
+    this.fileSize = 0;
   }
 
   onFileSelected(event: Event) {
@@ -44,7 +49,10 @@ export class VideoUploadComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        if (e.target) this.videoSrc = e.target.result;
+        if (e.target) {
+          this.videoSrc = e.target.result;
+          this.fileSize = file.size;
+        }
         this.uploadForm.patchValue({ title: file.name });
       };
       reader.readAsDataURL(file);
@@ -56,17 +64,36 @@ export class VideoUploadComponent {
   }
 
   async uploadVideo() {
+    if (this.uploadForm.invalid || !this.fileInput.nativeElement.files?.[0]) {
+      this.alertService.showError(
+        'Please fill in all fields and select a video.'
+      );
+      return;
+    }
+
+    this.isLoading = true;
     const formData = this.uploadForm.value;
     const video = this.fileInput.nativeElement.files?.[0];
     const title = formData.title;
     const description = formData.description;
+
     (await this.videoService.uploadVideo(video, title, description)).subscribe({
       next: () => {
         this.alertService.showSuccess('Video uploaded successfully');
+        this.resetForm();
+        this.isLoading = false;
       },
       error: (err) => {
         this.alertService.showError(err.error.message);
+        this.isLoading = false;
       },
     });
+  }
+
+  resetForm() {
+    this.uploadForm.reset();
+    this.videoSrc = null;
+    this.fileInput.nativeElement.value = '';
+    this.fileSize = 0;
   }
 }

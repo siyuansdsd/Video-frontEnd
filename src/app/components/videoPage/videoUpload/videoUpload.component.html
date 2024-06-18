@@ -1,32 +1,40 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
-    <mat-card class="w-full max-w-lg p-6 rounded-md shadow-lg fixed-size">
-        <h2 class="text-2xl font-semibold mb-6 text-center">Upload Video</h2>
-        <div class="mb-4">
-            <button mat-raised-button color="primary" (click)="triggerFileInput()"
-                class="w-full flex items-center justify-center mb-4">
-                <mat-icon>cloud_upload</mat-icon>
-                <span class="ml-2">Select Video</span>
-            </button>
-            <input #fileInput type="file" (change)="onFileSelected($event)" accept="video/*" class="hidden" />
+<mat-card class="w-full max-w-lg p-6 rounded-md shadow-lg">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Upload Video</h2>
+    <div class="mb-4">
+        <button mat-raised-button color="primary" (click)="triggerFileInput()"
+            class="w-full flex items-center justify-center mb-4" [disabled]="isLoading">
+            <mat-icon>cloud_upload</mat-icon>
+            <span class="ml-2">Select Video</span>
+        </button>
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="video/*" class="hidden" />
+    </div>
+    <form [formGroup]="uploadForm">
+        <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="Enter video title">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter video description"></textarea>
+        </mat-form-field>
+        <div>
+            <p>Video size:</p>
+            <div class="w-full h-1 mb-4">
+                <p>{{(fileSize/(1024*1024)).toFixed(2) + 'MB'}}</p>
+            </div>
         </div>
-        <form [formGroup]="uploadForm">
-            <mat-form-field appearance="fill" class="w-full mb-4">
-                <mat-label>Title</mat-label>
-                <input matInput formControlName="title" placeholder="Enter video title">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="w-full mb-4">
-                <mat-label>Description</mat-label>
-                <textarea matInput formControlName="description" placeholder="Enter video description"></textarea>
-            </mat-form-field>
-        </form>
-        <div class="w-full h-[360px] mb-4 flex items-center justify-center border-2 border-dashed border-gray-300 rounded"
-            *ngIf="!videoSrc">
-            <p class="text-center text-gray-500">Video Preview will appear here</p>
-        </div>
-        <div *ngIf="videoSrc" class="mb-4">
-            <h3 class="text-xl font-semibold mb-2 text-center">Video Preview</h3>
-            <video [src]="videoSrc" controls class="w-full h-[360px] rounded-md shadow-md"></video>
-        </div>
-        <button mat-raised-button color="accent" (click)="uploadVideo()" class="w-full">Confirm to upload</button>
-    </mat-card>
-</div>
+    </form>
+    <div class="w-full h-[360px] mb-4 flex items-center justify-center border-2 border-dashed border-gray-300 rounded"
+        *ngIf="!videoSrc">
+        <p class="text-center text-gray-500">Video Preview will appear here</p>
+    </div>
+    <div *ngIf="videoSrc" class="mb-4 h-[360px]">
+        <video [src]="videoSrc" controls class="w-full h-[360px] rounded-md shadow-md"></video>
+    </div>
+    <button mat-raised-button color="accent" (click)="uploadVideo()" class="w-full" [disabled]="isLoading">
+        <span *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>
+        </span>
+        <span *ngIf="!isLoading">Confirm to upload</span>
+    </button>
+</mat-card>

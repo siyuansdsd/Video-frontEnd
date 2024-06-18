@@ -9,7 +9,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from './store/reducers/auth.reducer';
 import { videoReducer } from './store/reducers/video.reducer';
-import { VideoEffect } from './store/effects/video.effect';
+import { VideoEffects } from './store/effects/video.effect';
 import { AuthEffects } from './store/effects/auth.effect';
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideStore({ auth: authReducer, video: videoReducer }),
-    provideEffects([AuthEffects, VideoEffect]),
+    provideEffects([AuthEffects, VideoEffects]),
   ],
 };

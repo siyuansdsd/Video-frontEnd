@@ -3,12 +3,14 @@ import { VideoState } from '../reducers/video.reducer';
 
 const getVideoState = createFeatureSelector<VideoState>('video');
 
-export const getVideos = createSelector(
+export const getVideos = createSelector(getVideoState, (state) => state.videos);
+
+export const getVideosLoading = createSelector(
   getVideoState,
-  (state: VideoState) => state.videos
+  (state) => state.loading
 );
 
-export const getError = createSelector(
+export const getVideosError = createSelector(
   getVideoState,
-  (state: VideoState) => state.error
+  (state) => state.error
 );

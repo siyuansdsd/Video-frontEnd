@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getUser } from '../../store/selectors/auth.selector';
 import { Store } from '@ngrx/store';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, tap, switchMap } from 'rxjs';
 import { Video } from '../../interface/video';
 
 @Injectable({
@@ -19,7 +19,6 @@ export class VideoService {
       throw new Error('User not found');
     }
     const userId = user.id;
-    console.log('user: ', userId);
     formData.append('file', video);
     formData.append('title', title);
     formData.append('user_ids', String(userId));
@@ -32,7 +31,31 @@ export class VideoService {
   }
 
   getVideos(): Observable<Video[]> {
-    const userId = sessionStorage.getItem('userId');
-    return this.http.get<Video[]>(`${this.apiUrl}/video/user/${userId}`);
+    return this.store.select(getUser).pipe(
+      tap((user) => console.log('Fetched user: ', user)),
+      switchMap((user) => {
+        if (!user) {
+          console.error('User not found');
+        }
+        const userId = user?.id;
+        const accessToken = sessionStorage.getItem('accessToken');
+        console.log('userId: ', userId, 'accessToken: ', accessToken);
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `${accessToken}`
+        );
+        return this.http.get<Video[]>(`${this.apiUrl}/video/user/${userId}`, {
+          headers,
+        });
+      })
+    );
+  }
+
+  deleteVideo(id: string): Observable<void> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `${sessionStorage.getItem('accessToken')}`
+    );
+    return this.http.delete<void>(`${this.apiUrl}/video/${id}`, { headers });
   }
 }
