@@ -1,6 +1,6 @@
 export interface User {
   is_active: boolean;
-  id: number;
+  id: string;
   name: string;
   email: string;
   refresh_token: string;
