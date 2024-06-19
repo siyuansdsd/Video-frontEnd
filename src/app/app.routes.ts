@@ -27,4 +27,8 @@ export const routes: Routes = [
     path: 'video/:id',
     component: VideoPlayerComponent,
   },
+  {
+    path: '**',
+    redirectTo: 'login',
+  },
 ];

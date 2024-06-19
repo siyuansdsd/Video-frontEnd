@@ -4,6 +4,6 @@ export interface Video {
   description: string;
   url: string;
   created_at: Date;
-  user_ids: number;
+  user_ids: string;
   size: number;
 }

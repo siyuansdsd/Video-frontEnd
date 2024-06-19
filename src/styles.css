@@ -15,15 +15,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: palevioletred;
   }
 
-/* 定义错误 Snackbar 的样式 */
+
 .mat-mdc-snack-bar-container.snackbar-error {
     --mdc-snackbar-container-color: #f32121 !important;
     --mat-mdc-snack-bar-button-color: #e68888 !important;
     --mdc-snackbar-supporting-text-color: #fff !important;
   }
   
-  /* 定义成功 Snackbar 的样式 */
-  .mat-mdc-snack-bar-container.snackbar-success {
+
+.mat-mdc-snack-bar-container.snackbar-success {
     --mdc-snackbar-container-color: #39c71f !important;
     --mat-mdc-snack-bar-button-color: #a2c29d !important;
     --mdc-snackbar-supporting-text-color: #fff !important;
