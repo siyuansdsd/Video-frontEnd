@@ -6,16 +6,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.snackbar-success {
-    color: greenyellow;
-  }
-  
-.snackbar-error {
-    background-color: #f44336 !important;
-    color: palevioletred;
-  }
-
-
 .mat-mdc-snack-bar-container.snackbar-error {
     --mdc-snackbar-container-color: #f32121 !important;
     --mat-mdc-snack-bar-button-color: #e68888 !important;
