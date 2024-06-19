@@ -1,27 +1,73 @@
 # FrondEnd
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This project is for Douglas's code test.
 
-## Development server
+## Content Table
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Intro](#introduction)
+- [Techs](#techs)
+- [GetStart](#get-start)
+- [Test](#test)
 
-## Code scaffolding
+## Introduction
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This application has 5 pages which is mainly created by 6 components.
 
-## Build
+5 pages contains:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1.loginPage 2.ResisterPage 3.VideoPage 4.VideoPlayerPage 5.EmailVerifyPage
 
-## Running unit tests
+6 components contains:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1.login component 2.register component 3.videoUpload component 4.videoList component 5.videoPlayer component
+6.emailVerify component
 
-## Running end-to-end tests
+These pages allow users to _create account, use email active account, login account, upload video to cloud, and read video from could._
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Techs
 
-## Further help
+- [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+- [Angular MUI](https://github.com/angular/components)
+- [NgRx](https://github.com/ngrx)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Get Start
+
+1. install everything
+   you should run:
+
+```bash
+$ npm i
+```
+
+2. start server
+
+You can run:
+
+```bash
+$ npm run start
+```
+
+or
+
+```bash
+$ ng server
+```
+
+After run this you can visit the app view in [this port](http://localhost:4200/)
+
+## Test
+
+you can run:
+
+```bash
+$ npm run test
+```
+
+or
+
+```bash
+$ ng test
+```
+
+A test server will be create and you will see a webpage of test are created.
+In this page you can check the test result.
